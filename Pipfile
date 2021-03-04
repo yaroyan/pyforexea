@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+python-dotenv = "*"
+configparser = "*"
+dict2obj = "*"
+flask = "*"
+numpy = "*"
+oandapyv20 = "*"
+omitempty = "*"
+python-dateutil = "*"
+requests = "*"
+sqlalchemy = "*"
+ta-lib = "*"
+
+[dev-packages]
+autopep8 = "*"
+flake8 = "*"
+
+[requires]
+python_version = "3.8"
