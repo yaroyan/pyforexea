@@ -15,6 +15,7 @@ python-dateutil = "*"
 requests = "*"
 sqlalchemy = "*"
 ta-lib = "*"
+pandas = "*"
 
 [dev-packages]
 autopep8 = "*"

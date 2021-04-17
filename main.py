@@ -1,13 +1,16 @@
-import datetime
 import logging
 import sys
+from threading import Thread
 
-from oanda.oanda import APIClient
-from oanda.oanda import Order
+from app.controllers.streamdata import stream
+from app.controllers.webserver import start
+import app.models
 
-from app.models.candle import UsdJpyCandle1M
+from app.models.candle import factory_candle_class
+from app.models.candle import create_candle_with_duration
+from oanda.oanda import Ticker
+
 import settings
-
 
 logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 
@@ -48,12 +51,20 @@ if __name__ == "__main__":
     # for t in trades:
     #     api_client.trade_close(t.trade_id)
 
-    import app.models
-    now1 = datetime.datetime(2020, 1, 2, 3, 4, 5)
-    UsdJpyCandle1M.create(now1, 1.0, 2.0, 3.0, 4.0, 5)
-    candle = UsdJpyCandle1M.get(now1)
-    print(candle.open)
-    candle.open = 100.0
-    candle.save()
-    updated_candle = UsdJpyCandle1M.get(now1)
-    print(updated_candle.open)
+    # streamThread = Thread(target=stream.stream_ingestion_data)
+    serverThread = Thread(target=start)
+    # streamThread.start()
+    serverThread.start()
+    # streamThread.join()
+    serverThread.join()
+
+    # import talib
+    # import numpy as np
+    # from app.models.dfcandle import DataFrameCandle
+    # df = DataFrameCandle(settings.product_code,
+    #                      settings.trade_duration)
+    # df.set_all_candles(settings.past_period)
+    # df.add_sma(7)
+    # print(df.value)
+    # values = talib.SMA(np.asarray(df.closes), 7)
+    # print(values)
